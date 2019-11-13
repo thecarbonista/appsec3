@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import TextAreaField, StringField, PasswordField, SubmitField, BooleanField
 from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from .models import User
@@ -26,9 +26,12 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
-
 class ContentForm(FlaskForm):
     body = StringField(u'Text', id='inputtext', widget=TextArea())
     submit = SubmitField('Spell Check')
     body1 = StringField(u'Text', id='textout', widget=TextArea())
+
+class PostForm(FlaskForm):
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('SpellCheck')
 

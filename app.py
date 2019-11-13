@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, Markup
+from flask import render_template, url_for, flash, redirect, request, Markup, session
 from . import app, db, bcrypt
 from .forms import RegistrationForm, LoginForm, ContentForm
 from .models import User, LoginHistory
@@ -57,9 +57,12 @@ def login():
 
         if user and bcrypt.check_password_hash(user.password, form.password.data) and (user.twofactor == form.twofactor.data):
             login_user(user)
-            login_history = LoginHistory(username=form.username.data, login_time=datetime.now())
+
+            login_history = LoginHistory(username=form.username.data, login_time=datetime.now(), logout_time='N/A')
             db.session.add(login_history)
             db.session.commit()
+            session['id'] = login_history.id
+            session['username'] = login_history.username
             success_message = 'Success'
         else:
             success_message = 'Failure'
@@ -70,9 +73,12 @@ def login():
 
 @app.route("/logout")
 def logout():
-    logout_user()
-    db.session.add(login_history)
+    log = LoginHistory.query.filter_by(id=session['id']).first()
+    log.logout_time = datetime.now()
     db.session.commit()
+    session.pop('username', None)
+    logout_user()
+
     return redirect(url_for('login'))
 
 

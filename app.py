@@ -1,9 +1,10 @@
 from flask import render_template, url_for, flash, redirect, request, Markup
 from . import app, db, bcrypt
 from .forms import RegistrationForm, LoginForm, ContentForm
-from .models import User
+from .models import User, LoginHistory
 from flask_login import login_user, current_user, logout_user, login_required
 import subprocess
+from datetime import datetime
 
 @app.route("/spell_check", methods=['GET', 'POST'])
 @login_required
@@ -53,8 +54,12 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+
         if user and bcrypt.check_password_hash(user.password, form.password.data) and (user.twofactor == form.twofactor.data):
             login_user(user)
+            login_history = LoginHistory(username=form.username.data, login_time=datetime.now())
+            db.session.add(login_history)
+            db.session.commit()
             success_message = 'Success'
         else:
             success_message = 'Failure'
@@ -66,6 +71,8 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
+    db.session.add(login_history)
+    db.session.commit()
     return redirect(url_for('login'))
 
 

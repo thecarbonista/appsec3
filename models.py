@@ -18,5 +18,20 @@ class User(db.Model, UserMixin):
 
 
 
+class LoginHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), db.ForeignKey('user.username'), nullable=False)
+    login_time = db.Column(db.String(20), nullable=False)
+    logout_time = db.Column(db.String(20))
+
+    def __repr__(self):
+        return f"LoginHistory('{self.username}')"
+
+
+
+
+
+
+
 
 

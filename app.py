@@ -1,14 +1,14 @@
 from flask import render_template, url_for, flash, redirect, request, Markup, session
 from . import app, db, bcrypt
-from .forms import RegistrationForm, LoginForm, ContentForm
-from .models import User, LoginHistory
+from .forms import RegistrationForm, LoginForm, PostForm
+from .models import User, LoginHistory, Post
 from flask_login import login_user, current_user, logout_user, login_required
 import subprocess
 from datetime import datetime
 
-@app.route("/spell_check", methods=['GET', 'POST'])
+@app.route("/spell_check1", methods=['GET', 'POST'])
 @login_required
-def spell_check():
+def spell_check1():
     form = ContentForm()
     content = 'Results will display here'
 
@@ -24,6 +24,21 @@ def spell_check():
 
         return redirect(url_for('spell_check', text=content))
     return render_template('spell_check.html', title='Spell Check', form=form, text=content)
+
+@app.route("/spell_check", methods=['GET', 'POST'])
+@login_required
+def spell_check():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        success_message = 'Success'
+        return redirect(url_for('spell_check'))
+    else:
+        success_message = 'Failure'
+
+    return render_template('spell_check.html', title='Spell Check', form=form, success=success_message)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

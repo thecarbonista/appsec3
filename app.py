@@ -72,6 +72,7 @@ def login():
             login_history = LoginHistory(username=form.username.data, login_time=datetime.now(), logout_time='N/A')
             db.session.add(login_history)
             db.session.commit()
+            session['user_id'] = user.id
             session['id'] = login_history.id
             session['username'] = login_history.username
             success_message = 'Success'
@@ -80,6 +81,14 @@ def login():
     if request.method == 'GET':
         success_message = ''
     return render_template('login.html', title='Login', form=form, result=success_message)
+
+@app.route("/history")
+@login_required
+def history():
+    posts = Post.query.filter_by(user_id=session['user_id'])
+    return render_template('history.html', posts=posts)
+
+
 
 
 @app.route("/logout")

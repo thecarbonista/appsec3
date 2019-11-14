@@ -6,35 +6,31 @@ from flask_login import login_user, current_user, logout_user, login_required
 import subprocess
 from datetime import datetime
 
-@app.route("/spell_check1", methods=['GET', 'POST'])
-@login_required
-def spell_check1():
-    form = ContentForm()
-    content = 'Results will display here'
-
-    if form.validate_on_submit():
-        text_file = open(r"usertext.txt", "w+")
-        text_file.write(form.body.data)
-        text_file.close()
-
-        f = open("results.txt", "w+")
-        subprocess.call(["./a.out", "./usertext.txt", "./wordlist.txt"], stdout=f)
-        content = f.read()
-        f.close()
-
-        return redirect(url_for('spell_check', text=content))
-    return render_template('spell_check.html', title='Spell Check', form=form, text=content)
-
 @app.route("/spell_check", methods=['GET', 'POST'])
 @login_required
 def spell_check():
     form = PostForm()
+
     if form.validate_on_submit():
         post = Post(content=form.content.data, author=current_user)
+
+        text_file = open(r"usertext.txt", "w+")
+        text_file.write(form.content.data)
+        text_file.close()
+
+        f = open("results.txt", "w+")
+        subprocess.call(["./a.out", "./usertext.txt", "./wordlist.txt"], stdout=f)
+
+        with open("results.txt") as f:
+            read_data = f.read()
+        f.close()
+        post.results = read_data
+
         db.session.add(post)
         db.session.commit()
+
         success_message = 'Success'
-        return redirect(url_for('spell_check'))
+        return redirect(url_for('spell_check', form=form, results=form.results))
     else:
         success_message = 'Failure'
 

@@ -29,7 +29,7 @@ def spell_check():
         db.session.commit()
 
         success_message = 'Success'
-        return render_template('result.html', results=post.results)
+        return render_template('result.html', content=form.content.data, results=post.results)
     else:
         success_message = 'Failure'
 

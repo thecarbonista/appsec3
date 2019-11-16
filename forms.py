@@ -28,5 +28,4 @@ class LoginForm(FlaskForm):
 
 class PostForm(FlaskForm):
     content = TextAreaField('Enter text to spell check', validators=[DataRequired()])
-    results = StringField('Misspelled')
     submit = SubmitField('Spell Check')

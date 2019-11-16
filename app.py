@@ -25,12 +25,11 @@ def spell_check():
             read_data = f.read()
         f.close()
         post.results = read_data
-
         db.session.add(post)
         db.session.commit()
 
         success_message = 'Success'
-        return redirect(url_for('spell_check', form=form, results=form.results))
+        return render_template('result.html', results=post.results)
     else:
         success_message = 'Failure'
 
@@ -60,6 +59,7 @@ def register():
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    success_message = ''
     if current_user.is_authenticated:
         success_message = 'Success'
     form = LoginForm()
@@ -79,7 +79,7 @@ def login():
         else:
             success_message = 'Failure'
     if request.method == 'GET':
-        success_message = 'Failure'
+        success_message = ''
     return render_template('login.html', title='Login', form=form, result=success_message)
 
 @app.route("/history")

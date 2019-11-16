@@ -85,10 +85,15 @@ def login():
 @app.route("/history")
 @login_required
 def history():
+    numqueries = Post.query.filter_by(user_id=session['user_id']).count()
     posts = Post.query.filter_by(user_id=session['user_id'])
-    return render_template('history.html', posts=posts)
+    return render_template('history.html', posts=posts, numqueries=numqueries)
 
-
+@app.route("/history/query<int:queryid>")
+def post(queryid):
+    posts = Post.query.filter_by(id=queryid)
+    username = Post.query.filter_by()
+    return render_template('query.html', posts=posts)
 
 
 @app.route("/logout")

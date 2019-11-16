@@ -9,7 +9,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', id='uname',
                            validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', id='pword', validators=[DataRequired()])
-    twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(10)])
+    twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(11)])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -22,7 +22,7 @@ class LoginForm(FlaskForm):
     username = StringField('Username', id='uname',
                            validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', id='pword', validators=[DataRequired()])
-    twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(10)])
+    twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(11)])
     submit = SubmitField('Login', id='result')
 
 

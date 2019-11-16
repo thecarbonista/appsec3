@@ -54,7 +54,7 @@ def register():
     else:
         success_message = ''
 
-    return render_template('register.html', title='Register', form=form,  result=success_message)
+    return render_template('register.html', title='Register', form=form,  success=success_message)
 
 
 @app.route("/", methods=['GET', 'POST'])

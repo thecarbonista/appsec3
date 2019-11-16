@@ -48,6 +48,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             success_message = 'Success'
+            return redirect(url_for('login'))
         else:
             success_message = 'Failure'
     else:
@@ -76,6 +77,7 @@ def login():
             session['id'] = login_history.id
             session['username'] = login_history.username
             success_message = 'Success'
+            return redirect(url_for('spell_check'))
         else:
             success_message = 'Failure'
     if request.method == 'GET':
@@ -90,10 +92,14 @@ def history():
     return render_template('history.html', posts=posts, numqueries=numqueries)
 
 @app.route("/history/query<int:queryid>")
+@login_required
 def post(queryid):
-    posts = Post.query.filter_by(id=queryid)
-    username = Post.query.filter_by()
-    return render_template('query.html', posts=posts)
+    user = Post.query.filter_by(id=queryid).first()
+    if user.user_id == session['user_id']:
+        posts = Post.query.filter_by(id=queryid)
+        return render_template('query.html', posts=posts)
+    else:
+        return render_template('noauth.html')
 
 
 @app.route("/logout")

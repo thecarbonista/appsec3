@@ -48,7 +48,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             success_message = 'Success'
-            return redirect(url_for('login'))
+            return redirect(url_for('login', success=success_message))
         else:
             success_message = 'Failure'
     else:

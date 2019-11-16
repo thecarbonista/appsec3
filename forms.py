@@ -23,10 +23,10 @@ class LoginForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', id='pword', validators=[DataRequired()])
     twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(10)])
-    submit = SubmitField('Login')
+    submit = SubmitField('Login', id='result')
 
 
 class PostForm(FlaskForm):
-    content = TextAreaField('Enter text to spell check', validators=[DataRequired()])
+    content = TextAreaField('Enter text to spell check', id='inputtext', validators=[DataRequired()])
     results = StringField('Misspelled')
     submit = SubmitField('Spell Check')

@@ -48,7 +48,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             success_message = 'Success'
-            
+
         else:
             success_message = 'Failure'
     else:

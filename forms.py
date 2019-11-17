@@ -16,7 +16,6 @@ class RegistrationForm(FlaskForm):
         if user:
             raise ValidationError('That username is taken. Please choose a different one.')
 
-
 class LoginForm(FlaskForm):
     username = StringField('Username', id='uname',
                            validators=[DataRequired(), Length(min=2, max=20)])
@@ -24,7 +23,11 @@ class LoginForm(FlaskForm):
     twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(10,11)])
     submit = SubmitField('Login')
 
-
 class PostForm(FlaskForm):
     content = TextAreaField('Enter text to spell check', id='inputtext', validators=[DataRequired()])
     submit = SubmitField('Spell Check')
+
+class HistoryForm(FlaskForm):
+    numqueries = TextAreaField('Queries: ', id='numqueries')
+    content = TextAreaField('Input Text: ', id='querytext')
+    results = TextAreaField('Results: ', id='queryresults')

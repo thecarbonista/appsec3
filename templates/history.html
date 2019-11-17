@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<div><h6>Number of Queries:</h6>{{ form.numqueries }}</div>
+<div><h6>Number of Queries:</h6><p id="numqueries">{{ numqueries }}</p></div>
     {% for post in posts %}
         <article class="media content-section">
 

@@ -27,7 +27,3 @@ class PostForm(FlaskForm):
     content = TextAreaField('Enter text to spell check', id='inputtext', validators=[DataRequired()])
     submit = SubmitField('Spell Check')
 
-class HistoryForm(FlaskForm):
-    numqueries = TextAreaField('Queries: ', id='numqueries')
-    content = TextAreaField('Input Text: ', id='querytext')
-    results = TextAreaField('Results: ', id='queryresults')

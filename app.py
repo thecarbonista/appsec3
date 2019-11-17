@@ -60,7 +60,6 @@ def register():
 def login():
     if current_user.is_authenticated:
         success_message = 'Success'
-        return render_template('login.html', title='Login', form=form, result=success_message)
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -75,13 +74,11 @@ def login():
             session['id'] = login_history.id
             session['username'] = login_history.username
             success_message = 'Success'
-            return render_template('login.html', title='Login', form=form, result=success_message)
         else:
             success_message = 'Failure'
-            return render_template('login.html', title='Login', form=form, result=success_message)
     if request.method == 'GET':
-        success_message = ''
-        return render_template('login.html', title='Login', form=form, result=success_message)
+        success_message = 'Failure'
+    return render_template('login.html', title='Login', form=form, result=success_message)
 
 @app.route("/history")
 @login_required

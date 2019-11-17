@@ -58,7 +58,6 @@ def register():
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    success_message = ''
     if current_user.is_authenticated:
         success_message = 'Success'
     form = LoginForm()
@@ -75,7 +74,6 @@ def login():
             session['id'] = login_history.id
             session['username'] = login_history.username
             success_message = 'Success'
-            return redirect(url_for('spell_check'))
         else:
             success_message = 'Failure'
     if request.method == 'GET':

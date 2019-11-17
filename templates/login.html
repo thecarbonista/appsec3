@@ -53,10 +53,11 @@
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
-            </div>
-            {% if result %}
+                {% if result %}
             <p id="result">{{ result }}</p>
             {% endif %}
+            </div>
+
         </form>
     </div>
     <div class="border-top pt-3">

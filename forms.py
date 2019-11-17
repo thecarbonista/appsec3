@@ -3,7 +3,6 @@ from wtforms import TextAreaField, StringField, PasswordField, SubmitField, Bool
 from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from .models import User, Post
-'''IDS GO HERE'''
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', id='uname',

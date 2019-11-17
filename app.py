@@ -58,6 +58,7 @@ def register():
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    success_message = ''
     if current_user.is_authenticated:
         success_message = 'Success'
     form = LoginForm()

@@ -58,7 +58,6 @@ def register():
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    success_message = ''
     if current_user.is_authenticated:
         success_message = 'Success'
     form = LoginForm()
@@ -97,6 +96,12 @@ def post(queryid):
         return render_template('query.html', posts=posts)
     else:
         return render_template('noauth.html')
+
+    '''
+The query id in an element with id=queryid
+The username of the account that submitted the query in an element with id=username
+The query text in an element with id=querytext
+The query results in an element with id=queryresults'''
 
 
 @app.route("/logout")

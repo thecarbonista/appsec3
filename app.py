@@ -35,7 +35,6 @@ def spell_check():
 
     return render_template('spell_check.html', title='Spell Check', form=form, success=success_message)
 
-'''Test Failed: Spellcheck form is missing id='inputtext''''
 
 
 @app.route("/register", methods=['GET', 'POST'])

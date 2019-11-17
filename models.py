@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    twofactor = db.Column(db.String(10), nullable=False)
+    twofactor = db.Column(db.String(11), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):

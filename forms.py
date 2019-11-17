@@ -3,13 +3,13 @@ from wtforms import TextAreaField, StringField, PasswordField, SubmitField, Bool
 from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from .models import User, Post
-
+'''IDS GO HERE'''
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', id='uname',
                            validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', id='pword', validators=[DataRequired()])
-    twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(11)])
+    twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(10,11)])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -22,7 +22,7 @@ class LoginForm(FlaskForm):
     username = StringField('Username', id='uname',
                            validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', id='pword', validators=[DataRequired()])
-    twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(11)])
+    twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(10,11)])
     submit = SubmitField('Login')
 
 

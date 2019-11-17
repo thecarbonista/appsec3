@@ -37,6 +37,7 @@ def spell_check():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    success_message = ''
     if current_user.is_authenticated:
         success_message = 'Success'
     form = RegistrationForm()
@@ -48,11 +49,8 @@ def register():
             db.session.add(user)
             db.session.commit()
             success_message = 'Success'
-
         else:
             success_message = 'Failure'
-    else:
-        success_message = ''
 
     return render_template('register.html', title='Register', form=form,  success=success_message)
 

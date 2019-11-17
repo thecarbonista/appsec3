@@ -100,12 +100,6 @@ def post(queryid):
     else:
         return render_template('noauth.html')
 
-    '''
-The query id in an element with id=queryid
-The username of the account that submitted the query in an element with id=username
-The query text in an element with id=querytext
-The query results in an element with id=queryresults'''
-
 
 @app.route("/logout")
 def logout():

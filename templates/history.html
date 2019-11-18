@@ -1,17 +1,12 @@
-{% extends "layout.html" %}
+{%  extends "layout.html" %}
 {% block content %}
-<div><h6>Number of Queries:</h6><p id="numqueries">{{ numqueries }}</p></div>
+    <p><h8>Username: </h8><a id="username">{{ uname }}</a></p>
+    <p id="numqueries" {{ numqueries }}</p>
     {% for post in posts %}
-        <article class="media content-section">
+        <a id="query{{ post.id }}" href="history/query{{post.id}}"}}>Query #{{ post.id }}</a><br>
+        <p class="article-content">{{ post.content }}</p>
 
-          <div class="media-body">
-
-            <div class="article-metadata">
-                <h7>Query#:</h7><a href="history/query{{post.id}}"><p queryid="queryid">{{ post.id }}</p></a>
-            </div>
-
-            <p class="article-content">{{ post.content }}</p>
-          </div>
-        </article>
     {% endfor %}
 {% endblock content %}
+
+

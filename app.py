@@ -91,7 +91,7 @@ def history():
 
     return render_template('history.html', posts=posts, id=numqueries)
 
-@app.route("/history/query<int:queryid>")
+@app.route("/history/query<int:queryid>", methods=['GET'])
 @login_required
 def post(queryid):
     user = Post.query.filter_by(id=queryid).first()

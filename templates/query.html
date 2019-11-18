@@ -4,15 +4,12 @@
 
 
           <div class="media-body">
-
-            <div class="article-metadata">
-                <h8>Query:</h8><a query="queryid">{{ post.id }}</a>
-                <p><h8>Username:</h8><a class="mr-2" href="#">{{ post.author.username }}</a></p>
-            </div>
-
-            <h8>Submitted Text:</h8><p class="article-content">{{ post.content }}</p>
-              <h8>Results:</h8><p class="article-content">{{ post.results }}</p>
+              <h8>Query# </h8><a id="queryid">{{ post.id }}</a>
+              <p><h8>Username: </h8><a id="username">{{ post.author.username }}</a></p>
+              <p><h8>Submitted Text: </h8><a id="querytext">{{ post.content }}</a></p>
+              <p><h8>Results: </h8><p><a id="queryresults">{{ post.results }}</a></p></p>
           </div>
 
     {% endfor %}
 {% endblock content %}
+

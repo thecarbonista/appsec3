@@ -89,7 +89,7 @@ def history():
     numqueries = Post.query.filter_by(user_id=session['user_id']).count()
     posts = Post.query.filter_by(user_id=session['user_id'])
 
-    return render_template('history.html', posts=posts, numqueries=numqueries)
+    return render_template('history.html', posts=posts, id=numqueries)
 
 @app.route("/history/query<int:queryid>")
 @login_required

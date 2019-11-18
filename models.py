@@ -13,9 +13,16 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     twofactor = db.Column(db.String(11), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+    is_admin = db.Column(db.Boolean)
+
+    def get_is_admin(self):
+        return self.is_admin
+
+    def set_is_admin(self, priv_mod):
+        self.is_admin = priv_mod
 
     def __repr__(self):
-        return f"User('{self.username}')"
+        return f"Username('{self.username}')"
 
 class LoginHistory(db.Model):
     id = db.Column(db.Integer, primary_key=True)

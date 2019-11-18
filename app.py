@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, Markup, session
 from . import app, db, bcrypt
-from .forms import RegistrationForm, LoginForm, PostForm
+from .forms import RegistrationForm, LoginForm, PostForm, Admin
 from .models import User, LoginHistory, Post
 from flask_login import login_user, current_user, logout_user, login_required
 import subprocess
@@ -83,14 +83,17 @@ def login():
         success_message = ''
     return render_template('login.html', title='Login', form=form, result=success_message)
 
-@app.route("/history")
+@app.route("/history", methods=['GET', 'POST'])
 @login_required
 def history():
-    numqueries = Post.query.filter_by(user_id=session['user_id']).count()
-    posts = Post.query.filter_by(user_id=session['user_id'])
-    username = session['username']
 
-    return render_template('history.html', posts=posts, id=numqueries, uname=username)
+    if current_user.get_is_admin():
+        return render_template('admin.html')
+    else:
+        numqueries = Post.query.filter_by(user_id=session['user_id']).count()
+        posts = Post.query.filter_by(user_id=session['user_id'])
+        username = session['username']
+        return render_template('history.html', posts=posts, id=numqueries, uname=username)
 
 @app.route("/history/query<int:queryid>", methods=['GET'])
 @login_required

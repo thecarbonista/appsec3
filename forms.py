@@ -27,7 +27,9 @@ class PostForm(FlaskForm):
     content = TextAreaField('Enter text to spell check', id='inputtext', validators=[DataRequired()])
     submit = SubmitField('Spell Check')
 
-class Admin(FlaskForm):
-    username = StringField('Username', id='userquery', validators=[DataRequired()])
+class AdminQuery(FlaskForm):
+    username = StringField('Enter Username', id='userquery', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
 

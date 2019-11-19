@@ -1,6 +1,6 @@
 {%  extends "layout.html" %}
 {% block content %}
-    <p><h8>Username: </h8><a id="username">{{ uname }}</a></p>
+    <p><h8>Username: </h8><a id="userquery">{{ uname }}</a></p>
     <p id="numqueries" {{ numqueries }}</p>
     {% for post in posts %}
         <a id="query{{ post.id }}" href="history/query{{post.id}}"}}>Query #{{ post.id }}</a><br>

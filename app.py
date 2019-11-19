@@ -93,14 +93,14 @@ def history():
             username = User.query.filter_by(username=form.username.data).first()
             user_id = username.id
             posts = Post.query.filter_by(user_id=user_id)
-            return render_template('history.html', posts=posts, uname=username)
+            return render_template('history.html', posts=posts, userqery=username)
         return render_template('admin.html', form=form, users=users)
 
     else:
         numqueries = Post.query.filter_by(user_id=session['user_id']).count()
         posts = Post.query.filter_by(user_id=session['user_id'])
         username = session['username']
-        return render_template('history.html', posts=posts, id=numqueries, uname=username)
+        return render_template('history.html', posts=posts, id=numqueries, userquery=username)
 
 @app.route("/history/query<int:queryid>", methods=['GET'])
 @login_required

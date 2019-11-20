@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <p><h8>User ID: </h8><a id="user_id">{{ user_id }}</a></p>
+        {% for history in histories %}
+
+            <p><h8>Login Timestamp: </h8><a id="login_time">{{ history.login_time }}</a></p>
+            <p><h8>Logout Timestamp: </h8><a id="logout_time">{{ history.logout_time }}</a></p>
+
+        {% endfor %}
+{% endblock content %}

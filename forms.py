@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, StringField, PasswordField, SubmitField, BooleanField
-from wtforms.widgets import TextArea
+from wtforms import TextAreaField, StringField, PasswordField, SubmitField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
-from .models import User, Post
+from .models import User, Post, LoginHistory
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', id='uname',
@@ -22,6 +21,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', id='pword', validators=[DataRequired()])
     twofactor = StringField('Two Factor', id='2fa', validators=[DataRequired(), Length(10,11)])
     submit = SubmitField('Login')
+
+class HistoryForm(FlaskForm):
+    user_id = IntegerField('Enter User ID', id='userid', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class PostForm(FlaskForm):
     content = TextAreaField('Enter text to spell check', id='inputtext', validators=[DataRequired()])

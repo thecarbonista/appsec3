@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, Markup, session
 from . import app, db, bcrypt
-from .forms import RegistrationForm, LoginForm, PostForm, AdminQuery
+from .forms import RegistrationForm, LoginForm, PostForm, AdminQuery, HistoryForm
 from .models import User, LoginHistory, Post
 from flask_login import login_user, current_user, logout_user, login_required
 import subprocess
@@ -70,7 +70,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data) and (user.twofactor == form.twofactor.data):
             login_user(user)
 
-            login_history = LoginHistory(username=form.username.data, login_time=datetime.now(), logout_time='N/A')
+            login_history = LoginHistory(username=form.username.data, user_id=user.id, login_time=datetime.now(), logout_time='N/A')
             db.session.add(login_history)
             db.session.commit()
             session['user_id'] = user.id
@@ -112,6 +112,20 @@ def post(queryid):
     else:
         return render_template('noauth.html')
 
+@app.route('/login_history', methods=['GET', 'POST'])
+@login_required
+def login_history():
+    if current_user.get_is_admin():
+        histories = LoginHistory.query.all()
+        form = HistoryForm()
+        if form.validate_on_submit():
+            user = LoginHistory.query.filter_by(user_id=form.user_id.data).first()
+            user_id = user.user_id
+            history = LoginHistory.query.filter_by(user_id=form.user_id.data)
+            return render_template('admin_view.html', histories=histories, history=history, user_id=user_id)
+        return render_template('login_history.html', form=form, histories=histories)
+    else:
+        return render_template('noauth.html')
 
 @app.route("/logout")
 def logout():

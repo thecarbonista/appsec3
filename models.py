@@ -26,12 +26,13 @@ class User(db.Model, UserMixin):
 
 class LoginHistory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), db.ForeignKey('user.username'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     login_time = db.Column(db.String(20), nullable=False)
     logout_time = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
-        return f"LoginHistory('{self.username}')"
+        return f"LoginHistory('{self.user_id}')"
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)

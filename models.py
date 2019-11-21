@@ -15,6 +15,9 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
     is_admin = db.Column(db.Boolean)
 
+    def get_id(self):
+        return self.id
+
     def get_is_admin(self):
         return self.is_admin
 

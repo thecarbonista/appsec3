@@ -90,17 +90,19 @@ def history():
         users = User.query.all()
         form = AdminQuery()
         if form.validate_on_submit():
-            username = User.query.filter_by(username=form.username.data).first()
-            user_id = username.id
+            user = User.query.filter_by(username=form.username.data).first()
+            username = user.username
+            user_id = user.id
+            numqueries = Post.query.filter_by(user_id=user_id).count()
             posts = Post.query.filter_by(user_id=user_id)
-            return render_template('history.html', posts=posts, userqery=username)
+            return render_template('history.html', posts=posts, userquery=username, user_id=user_id, numqueries=numqueries)
         return render_template('admin.html', form=form, users=users)
-
     else:
         numqueries = Post.query.filter_by(user_id=session['user_id']).count()
         posts = Post.query.filter_by(user_id=session['user_id'])
         username = session['username']
-        return render_template('history.html', posts=posts, id=numqueries, userquery=username)
+        user_id = session['user_id']
+        return render_template('history.html', posts=posts, numqueries=numqueries, user_id=user_id, userquery=username)
 
 @app.route("/history/query<int:queryid>", methods=['GET'])
 @login_required

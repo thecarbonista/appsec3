@@ -111,6 +111,9 @@ def post(queryid):
     if user.user_id == session['user_id']:
         posts = Post.query.filter_by(id=queryid)
         return render_template('query.html', posts=posts)
+    elif current_user.get_is_admin():
+        posts = Post.query.filter_by(id=queryid)
+        return render_template('query.html', posts=posts)
     else:
         return render_template('noauth.html')
 

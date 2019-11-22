@@ -6,7 +6,7 @@
         {% for history in histories %}
             {% if history.user_id == user_id%}
             <li><h8>Login#  </h8><a id="login{{ history.id }}">{{ history.id }}</a> <a id="login{{ history.id }}_time">{{ history.login_time }}</a></li>
-            <li><h8>Logout#  </h8><a id="login{{ history.id }}">{{ history.id }}</a> <a id="logout{{ history.id }}_time">{{ history.logout_time }}</a></li></li>
+            <li><h8>Logout#  </h8><a id="logout{{ history.id }}">{{ history.id }}</a> <a id="logout{{ history.id }}_time">{{ history.logout_time }}</a></li></li>
             {% endif %}
         {% endfor %}
         </ul>

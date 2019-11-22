@@ -23,7 +23,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class HistoryForm(FlaskForm):
-    user_id = IntegerField('Enter User ID', id='userid', validators=[DataRequired()])
+    user_id = IntegerField('Enter User ID', id='userquery', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class PostForm(FlaskForm):
